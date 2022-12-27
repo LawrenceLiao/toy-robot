@@ -2,8 +2,7 @@ package com.lawrence.executor;
 
 import com.lawrence.enumerate.Direction;
 import com.lawrence.model.Coordinate;
-import com.lawrence.model.Robot;
-import com.lawrence.playground.ToyRobotGame;
+import com.lawrence.model.ToyRobotGame;
 
 import java.util.List;
 
@@ -18,14 +17,8 @@ public class PlaceExecutor implements Executor {
                 .xAxis(Integer.parseInt(parameter.get(0)))
                 .yAxis(Integer.parseInt(parameter.get(1)))
                 .build();
+        Direction direction = Direction.valueOf(parameter.get(2));
 
-        if (!toyRobotGame.getTable().isOnTable(coordinate)) {
-            return;
-        }
-
-        toyRobotGame.setRobot(Robot.builder()
-                .coordinate(coordinate)
-                .direction(Direction.valueOf(parameter.get(2)))
-                .build());
+       toyRobotGame.placeRobot(coordinate, direction);
     }
 }
