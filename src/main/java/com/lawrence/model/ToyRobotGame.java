@@ -8,43 +8,39 @@ public class ToyRobotGame {
     private final Table table;
     private Robot robot;
 
-    private Coordinate robotCoordinate;
-
     public ToyRobotGame(int size) {
         table = new Table(size);
     }
 
 
     public void placeRobot(Coordinate coordinate, Direction direction) {
-        changeCoordinate(coordinate);
+        if (!table.isOnTable(coordinate)) {
+            return;
+        }
         robot = Robot.builder()
+                .robotCoordinate(coordinate)
                 .direction(direction)
                 .build();
 
     }
 
     public void rotateRobot(RotateOption rotateOption) {
-        robot.rotate(rotateOption);
+        robot = robot.rotate(rotateOption);
     }
 
     public void report() {
-        System.out.println(this);
+        System.out.println(robot);
     }
 
     public void move() {
-        Coordinate newCoordinate = robotCoordinate.move(robot.getDirection());
-        changeCoordinate(newCoordinate);
+        Robot updatedRobot = robot.moveForward();
+        moveRobot(updatedRobot);
     }
 
-    private void changeCoordinate(Coordinate coordinate) {
-        if (!table.isOnTable(coordinate)) {
+    private void moveRobot(Robot robot) {
+        if (!table.isOnTable(robot.getRobotCoordinate())) {
             return;
         }
-        robotCoordinate = coordinate;
-    }
-
-    @Override
-    public String toString() {
-        return robotCoordinate + "," + robot;
+        this.robot = robot;
     }
 }

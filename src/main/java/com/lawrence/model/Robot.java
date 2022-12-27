@@ -2,24 +2,29 @@ package com.lawrence.model;
 
 import com.lawrence.enumerate.Direction;
 import com.lawrence.enumerate.RotateOption;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Value;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+
+@Value
+@Builder(toBuilder = true)
 public class Robot {
 
-    private Direction direction;
+    Coordinate robotCoordinate;
+    Direction direction;
 
-    public void rotate(RotateOption rotateOption) {
-        direction = Direction.rotate(direction, rotateOption);
+    public Robot rotate(RotateOption rotateOption) {
+        Direction rotatedDirection = Direction.rotate(direction, rotateOption);
+        return this.toBuilder().direction(rotatedDirection).build();
     }
+
+    public Robot moveForward() {
+        Coordinate movedCoordinate = robotCoordinate.move(direction);
+        return this.toBuilder().robotCoordinate(movedCoordinate).build();
+    }
+
     @Override
     public String toString() {
-        return direction.toString();
+        return robotCoordinate + "," + direction;
     }
 }
