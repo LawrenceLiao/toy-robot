@@ -1,6 +1,6 @@
 package com.lawrence.parser;
 
-import com.lawrence.enumerate.CommandType;
+import com.lawrence.enumerate.Operation;
 import com.lawrence.model.Command;
 
 import java.util.Arrays;
@@ -23,7 +23,7 @@ public class CommandParser {
 
     private Command parseCommand(String text) {
         String[] array = text.trim().split(COMMAND_SEPARATOR);
-        CommandType commandType = CommandType.valueOf(array[0].trim());
+        Operation operation = Operation.valueOf(array[0].trim());
 
         List<String> parameters = Collections.emptyList();
         if (array.length > 1) {
@@ -31,7 +31,7 @@ public class CommandParser {
         }
 
         return Command.builder()
-                .commandType(commandType)
+                .operation(operation)
                 .parameters(parameters)
                 .build();
     }

@@ -3,6 +3,7 @@ package com.lawrence;
 import com.lawrence.model.Command;
 import com.lawrence.parser.CommandParser;
 import com.lawrence.playground.PlayGround;
+import com.lawrence.playground.ToyRobotGame;
 import com.lawrence.util.FileLoader;
 
 import java.io.IOException;
@@ -19,9 +20,10 @@ public class ToyRobotApplication {
         List<String> inputs = new FileLoader().load(args[0]);
         List<Command> commands = new CommandParser().parse(inputs);
 
-        PlayGround playGround = new PlayGround(5);
+        ToyRobotGame toyRobotGame = new ToyRobotGame(5);
+        PlayGround playGround = new PlayGround(toyRobotGame);
 
-        commands.forEach(playGround::executeCommand);
+        commands.forEach(playGround::play);
     }
 
 }

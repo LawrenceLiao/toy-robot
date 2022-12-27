@@ -11,14 +11,19 @@ public enum Direction {
     SOUTH(0, -1),
     WEST(-1, 0);
 
-    public int xAsis;
-    public int yAxis;
+    public final int xAsis;
+    public final int yAxis;
 
     public static Direction getDirection(int ordinal) {
         if (ordinal < 0 || ordinal > Direction.values().length) {
             throw new IllegalArgumentException("Invalid ordinal for Direction");
         }
         return values()[ordinal];
+    }
+
+    public static Direction rotate(Direction prevDirection, RotateOption rotateOption) {
+        int ordinal = (prevDirection.ordinal() + rotateOption.ordinalChange + 4) % 4;
+        return Direction.getDirection(ordinal);
     }
 
 }
