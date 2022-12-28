@@ -7,18 +7,23 @@ import lombok.Value;
 
 @Value
 @Builder(toBuilder = true)
-public class Coordinate {
+public class Location {
     @Builder.Default
     int xAxis = 0;
 
     @Builder.Default
     int yAxis = 0;
 
-    public Coordinate move(Direction direction) {
+    public Location move(Direction direction) {
         return this.toBuilder()
-                .xAxis(this.xAxis + direction.xAsis)
-                .yAxis(this.yAxis + direction.yAxis)
+                .xAxis(this.xAxis + direction.xOffset)
+                .yAxis(this.yAxis + direction.yOffset)
                 .build();
+    }
+
+    public boolean isOnTable(Table table) {
+        return xAxis >= 0 && xAxis < table.getLength()
+                && yAxis >= 0 && yAxis < table.getWidth();
     }
 
     @Override

@@ -13,19 +13,19 @@ public class ToyRobotGame {
     }
 
 
-    public void placeRobot(Coordinate coordinate, Direction direction) {
-        if (!table.isOnTable(coordinate)) {
+    public void placeRobot(Location location, Direction direction) {
+        if (!table.isOnTable(location)) {
             return;
         }
         robot = Robot.builder()
-                .robotCoordinate(coordinate)
+                .robotLocation(location)
                 .direction(direction)
                 .build();
 
     }
 
     public void rotateRobot(RotateOption rotateOption) {
-        robot = robot.rotate(rotateOption);
+        robot.rotate(rotateOption);
     }
 
     public void report() {
@@ -33,14 +33,7 @@ public class ToyRobotGame {
     }
 
     public void move() {
-        Robot updatedRobot = robot.moveForward();
-        moveRobot(updatedRobot);
+        robot.moveForward(table);
     }
-
-    private void moveRobot(Robot robot) {
-        if (!table.isOnTable(robot.getRobotCoordinate())) {
-            return;
-        }
-        this.robot = robot;
-    }
+    
 }

@@ -11,8 +11,8 @@ public enum Direction {
     SOUTH(0, -1),
     WEST(-1, 0);
 
-    public final int xAsis;
-    public final int yAxis;
+    public final int xOffset;
+    public final int yOffset;
 
     public static Direction getDirection(int ordinal) {
         if (ordinal < 0 || ordinal > Direction.values().length) {
